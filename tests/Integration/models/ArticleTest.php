@@ -2,7 +2,7 @@
 
 namespace Tests\Integration\Models;
 
-use App\Article;
+use \App\Data\Models\Article;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -19,7 +19,7 @@ class ArticleTest extends TestCase
      */
     public function it_fetches_trending_articles()
     {
-        //Given - You have 5 articles in the db, 2 of which are popular. In the list, this two should be at the top
+        /* 1. Given - You have 5 articles in the db, 2 of which are popular. In the list, this two should be at the top */
 
         //Create a model factory to avoid adding records to the db manually each time! (i.e. Article::create();) using factory global class.
         //This will generate 3 dummy articles and persist them to our database.
@@ -28,13 +28,13 @@ class ArticleTest extends TestCase
         factory(Article::class)->create(['reads' => 20]);
         $mostPopular = factory(Article::class)->create(['reads' => 30]);
 
-        //When
+        /* 2. When */
 
         // Use a Query Scope here - When I call an action trending,
 
         $articles = Article::trending();
 
-        //Then
+        /* 3. Then */
 
         // In this part, write your phpunit assertions.
 
