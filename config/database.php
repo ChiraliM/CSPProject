@@ -39,6 +39,7 @@ return [
             'prefix' => '',
         ],
 
+        //Updating charset and collation to utf8 instead of utf8mb4 to avoid migration failure for longer key length. https://github.com/laravel/framework/issues/17508#issuecomment-321773318
         'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -47,8 +48,24 @@ return [
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
+        // Run php artisan migrate --database mysql_testing(DB_CONN name) to migrate tables.
+        'mysql_testing' => [
+            'driver' => 'mysql',
+            'host' => env('TEST_DB_HOST', '127.0.0.1'),
+            'port' => env('TEST_DB_PORT', '3306'),
+            'database' => env('TEST_DB_DATABASE', 'testing'),
+            'username' => env('TEST_DB_USERNAME', 'root'),
+            'password' => env('TEST_DB_PASSWORD', 'root'),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'strict' => true,
             'engine' => null,
@@ -115,6 +132,30 @@ return [
             'database' => 0,
         ],
 
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Testing Database
+    |--------------------------------------------------------------------------
+    |
+    | Database config for testing purpose
+    |
+     */
+
+    'mysql_testing' => [
+        'driver' => 'mysql',
+        'host' => env('TEST_DB_HOST', '127.0.0.1'),
+        'port' => env('TEST_DB_PORT', '3306'),
+        'database' => env('TEST_DB_DATABASE', 'db_testing'),
+        'username' => env('TEST_DB_USERNAME', 'root'),
+        'password' => env('TEST_DB_PASSWORD', 'root'),
+        'unix_socket' => env('DB_SOCKET', ''),
+        'charset' => 'utf8',
+        'collation' => 'utf8_unicode_ci',
+        'prefix' => '',
+        'strict' => true,
+        'engine' => null,
     ],
 
 ];
